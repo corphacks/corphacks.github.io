@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Super Simple SSH Tunnel
+comments: true
 ---
 
 ### Overview
@@ -103,22 +104,25 @@ With the new gateway service up and running on Amazon, the next step is to prepa
     Where `GATEWAY` points to the IP address that was noted in Step 1. If successful, you will be presented with the command prompt of the new instance:
 {% include thumb.html url="/assets/diagrams/simple/ec2conf-1.png" %}
 
-3. Switch to `root` by running `sudo su`, then open the sshd config file for editing using `vi /etc/ssh/sshd_config`:
-{% include thumb.html url="/assets/diagrams/simple/ec2conf-2.png" %}
+3. Switch to `root` by running `sudo su`, then open the sshd config file for editing using `vi` or similar:
 
-4. Add an additional `Port 443` configuration line underneath the existing `Port 22` declaration and save the file:
+    ```bash
+    vi /etc/ssh/sshd_config
+    ```
+
+4. Add an additional `Port 443` configuration directive underneath the existing `Port 22` declaration and save the file:
 {% include thumb.html url="/assets/diagrams/simple/ec2conf-3.png" %}
 
 5. Restart the `ssh` service by running `service ssh restart`:
 {% include thumb.html url="/assets/diagrams/simple/ec2conf-4.png" %}
 
 6. To allow the `root` account to SSH directly into the server, edit the `/root/.ssh/authorized_keys` file and remove the comment at the beginning of the first line, so that the line starts with `ssh-rsa AAA...`:
-{% include thumb.html url="/assets/diagrams/simple/ec2conf-5.png" %}
+{% include bordered.html url="/assets/diagrams/simple/ec2conf-5.png" %}
 
     After editing, the contents of the `/root/.ssh/authorized_keys` file should look something like this:
-{% include thumb.html url="/assets/diagrams/simple/ec2conf-6.png" %}
+{% include bordered.html url="/assets/diagrams/simple/ec2conf-6.png" %}
 
-7. Check that `root` account can no ssh into the gateway on port `443` by running:
+7. Check that `root` account can now ssh into the gateway on port `443` by running:
 
     ```bash
     ssh -p 443 root@${GATEWAY} -i /tmp/tunnel/tunnel-key-1.pem
@@ -130,7 +134,7 @@ With the new gateway service up and running on Amazon, the next step is to prepa
 
 ##### Step 3 - Add Chatty Script to Gateway
 
-This script is used by both the local and remote machines to maintain a persistent connection to the gateway. When executed, the script outputs a tiny bit of text at random intervals, making it appear to be an active, healthy connection to the surrounding infrastructure and reduces the risk that the connection will be terminated. I have found this method to be sufficient to keep the tunnel connection maintained for weeks on end.
+This script is used by both the local and remote machines to maintain persistent connections to the gateway. When executed, the script outputs a tiny bit of text at random intervals, making it appear to be an active, healthy connection to the surrounding infrastructure, which helps reduce the risk that the connection will be terminated. I have found this method to be sufficient to keep the tunnel connection maintained for weeks on end.
 
 Create this script as follows:
 
