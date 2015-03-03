@@ -37,14 +37,20 @@
           </nav>
         </header>
       </div>
-    </div>
 
-    <div id="main" role="main" class="container">
-      {{ content }}
+      <div class="container">
+        <div id="sidebar" class="sidebar">
+          {% include sidebar.html %}
+        </div>
 
-      {% if page.comments %}
-        {% include comments.html %}
-      {% endif %}
+        <div id="main" role="main" class="content">
+          {{ content }}
+
+          {% if page.comments %}
+            {% include comments.html %}
+          {% endif %}
+        </div>
+      </div>
     </div>
 
 

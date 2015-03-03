@@ -18,16 +18,23 @@ html {
 }
 
 body {
-	background: $white;
+  background: $white;
   font: 18px/1.4 $helvetica;
   color: $darkGray;
 }
 
 .container {
   margin: 0 auto;
-  max-width: 840px;
-  padding: 0 10px;
-  width: 100%;
+  max-width: 1080px;
+}
+
+.content {
+  width: 70%;
+}
+
+.sidebar {
+  float: right;
+  width: 30%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -283,6 +290,7 @@ footer {
   text-align: center;
 }
 
+
 // Settled on moving the import of syntax highlighting to the bottom of the CSS
 // ... Otherwise it really bloats up the top of the CSS file and makes it difficult to find the start
 @import "_highlights";
@@ -308,4 +316,36 @@ footer {
   border: 1px solid #EEEEEE;
   max-width: 400px;
   box-shadow: 5px 5px 5px #DDDDDD;
+}
+
+.navtitle {
+  font-family: $helveticaNeue;
+  font-size: 16px;
+  font-variant: small-caps;
+  border-bottom: 1px solid #DDDDDD;
+
+  a {
+    margin-left: 20px;
+    color: $darkGray;
+    text-align: right;
+    font-weight: 300;
+    letter-spacing: 1px;
+
+    @include mobile {
+      margin: 0 10px;
+      color: $blue;
+    }
+  }
+}
+
+.sidenav {
+  font-family: $helveticaNeue;
+  font-size: 14px;
+  color: $darkerGray;
+
+  a {
+    color: $darkGray;
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
 }

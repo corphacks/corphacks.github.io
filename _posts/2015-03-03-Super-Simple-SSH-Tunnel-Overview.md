@@ -1,18 +1,20 @@
 ---
 layout: post
-title: Super Simple SSH Tunnel
+title: Super Simple SSH Tunnel - Overview
 comments: true
 ---
 
+{% include simple_ssh/toc.html %}
+
+<a name="overview"></a>
 ### Overview
 
 This guide shows you how to set up a quick and dirty SSH tunnel from your workstation to a server in a remote, hard-to-get-at network. It makes use of a gateway machine in AWS to maintain the tunnel connection and includes all the tricks required to get through proxies and firewalls. 
 
-
-> Please Note: 
-> This post is purely for interest's sake. I highly recommend you do not do this at your organisation as you may quickly find yourself on the wrong end of a workplace agreement violation.
+{% include simple_ssh/disclaimer.html %}
 
 
+<a name="sec1"></a>
 ##### The Server Bits
 
 Three separate machines are involved in setting up the tunnel in this guide:
@@ -24,6 +26,7 @@ Three separate machines are involved in setting up the tunnel in this guide:
 This guide assumes that your remote machine and gateway are running _Ubuntu_ and your workstation is running _OS X_, however the configuration would not vary too much on other systems, and this guide could be adapted to support SSH client/server software running platforms including _Red Hat_ and even _Windows_.
 
 
+<a name="sec2"></a>
 ##### The Tunneling Example
 
 _The Goal: Establish a simple tunnel from a local workstation to a remote HTTP server._
@@ -43,6 +46,7 @@ The command above acts in the same way as if the following was executed on the r
 This guide will take you through all the steps necessary to recreate this example.
 
 
+<a name="part1"></a>
 ## Part 1: Build the Gateway
 
 Since the gateway does very little work, besides forwarding packets from once port to another, we can get away with using the smallest EC2 instance available. In this case, I am using a `t2.micro` instance with Ubuntu 14.04. 
@@ -187,17 +191,10 @@ This guide focuses on a scenario that is common to corporate work environments, 
 As mentioned earlier in this guide, this part assumes the remote server is running _Ubuntu_, and therefore the `proxytunnel` application can be installed using the `apt` package manager, using the steps below.
 
 > Please Note:
-> In this scenario, it is likely that the `apt` application will itself require some way of connecting through the corporate proxy. Please see the post [Apt and the Corporate Proxy]({% post_url 2015-03-03-Apt-and-the-Corporate-Proxy %}) for details on how to achieve this.
+> In this scenario, it is likely that the `apt` application will itself require some way of connecting through the corporate proxy. Please see the post [Apt and the Corporate Proxy](TBD) for details on how to achieve this.
 
 
-
-
-
-
-
-
-
-
+TEST: [Apt and the Corporate Proxy]({% post_url 2015-03-03-Apt-and-the-Corporate-Proxy %}).
 
 
 

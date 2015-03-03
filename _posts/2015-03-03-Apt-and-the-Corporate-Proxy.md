@@ -8,9 +8,8 @@ comments: true
 
 This guide shows two quick methods of getting the _Aptitude_ program on _Debian_ and _Ubuntu_-based systems to successfully connect to remote package repositories from behind a corporate proxy. A proxy host IP address of `10.11.12.13` and port value of `8080` are used below for example purposes.
 
+{% include simple_ssh/disclaimer.html %}
 
-> Please Note: 
-> This post is purely for interest's sake. I highly recommend you do not do this at your organisation as you may quickly find yourself on the wrong end of a workplace agreement violation.
 
 ## Method 1 - Session and Command-line Environment Variables
 
