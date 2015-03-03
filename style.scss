@@ -287,3 +287,25 @@ footer {
 // ... Otherwise it really bloats up the top of the CSS file and makes it difficult to find the start
 @import "_highlights";
 @import "_svg-icons";
+
+/****************/
+/* CUSTOM RULES */
+/****************/
+
+.diagram {
+  font-style: italic;
+  font-size: 80%;
+  text-align: left;
+}
+
+.bimage {
+  border: 1px solid #EEEEEE;
+  max-width: 800px;
+  box-shadow: 5px 5px 5px #DDDDDD;
+}
+
+.thumbimage {
+  border: 1px solid #EEEEEE;
+  max-width: 400px;
+  box-shadow: 5px 5px 5px #DDDDDD;
+}
