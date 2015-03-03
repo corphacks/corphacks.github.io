@@ -41,7 +41,12 @@
 
     <div id="main" role="main" class="container">
       {{ content }}
+
+      {% if page.comments %}
+        {% include comments.html %}
+      {% endif %}
     </div>
+
 
     <div class="wrapper-footer">
       <div class="container">

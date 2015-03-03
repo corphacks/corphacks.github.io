@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Apt and the Corporate Proxy
+comments: true
 ---
 
 ### Overview
@@ -38,7 +39,6 @@ Acquire::http::Proxy "http://10.11.12.13:8080";
 
 Once saved, `apt` commands can be run without needing to specify the environment variables mentioned earlier:
 {% include bordered.html url="/assets/diagrams/apt/apt-1.png" %}
-
 
 
 
