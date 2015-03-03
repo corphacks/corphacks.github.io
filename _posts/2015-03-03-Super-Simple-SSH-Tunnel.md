@@ -132,6 +132,44 @@ With the new gateway service up and running on Amazon, the next step is to prepa
 
 This script is used by both the local and remote machines to maintain a persistent connection to the gateway. When executed, the script outputs a tiny bit of text at random intervals, making it appear to be an active, healthy connection to the surrounding infrastructure and reduces the risk that the connection will be terminated. I have found this method to be sufficient to keep the tunnel connection maintained for weeks on end.
 
+Create this script as follows:
+
+1. Log in to the gateway server as `root`, and create a new file called `/root/chatty.sh` with the following contents:
+
+    ```bash
+    #!/bin/bash
+
+    set -e
+    
+    WHOISIT=not_sure
+    
+    if [ $# == 1 ]; then
+      WHOISIT=$1
+    fi
+    
+    while true; do
+      R=$(( ( RANDOM % 30 )  + 11 ))
+      printf "%14s : $R s\n" $WHOISIT
+      sleep $R
+    done
+    ```
+
+2. Ensure the script is executable by running:
+
+    ```bash
+    chmod +x /root/chatty.sh
+    ```
+
+3. Test that the script runs by executing 
+
+    ```bash
+    /root/chatty.sh testing
+    ```
+
+    The output should look something like this:
+{% include bordered.html url="/assets/diagrams/chatty-1.png" %}
+
+    Kill the process by hitting `CTRL-C`.
 
 
 
@@ -142,6 +180,7 @@ This script is used by both the local and remote machines to maintain a persiste
 
 
 
-
-
-TBC...
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+_... TBC..._
