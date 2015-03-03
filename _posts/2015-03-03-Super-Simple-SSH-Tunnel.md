@@ -3,13 +3,13 @@ layout: post
 title: Super Simple SSH Tunnel
 ---
 
-> Please Note: 
-> This post is purely for interest's sake. I highly recommend you do not do this at your organisation as you may quickly find yourself on the wrong end of a workplace agreement violation.
-
-
 ### Overview
 
 This guide shows you how to set up a quick and dirty SSH tunnel from your workstation to a server in a remote, hard-to-get-at network. It makes use of a gateway machine in AWS to maintain the tunnel connection and includes all the tricks required to get through proxies and firewalls. 
+
+
+> Please Note: 
+> This post is purely for interest's sake. I highly recommend you do not do this at your organisation as you may quickly find yourself on the wrong end of a workplace agreement violation.
 
 
 ##### The Server Bits
@@ -29,20 +29,20 @@ _The Goal: Establish a simple tunnel from a local workstation to a remote HTTP s
 
 The SSH tunnel in this example is made up of two persistent SSH connections - one from the local workstation side and one from the remote machine side. When established, the connections between the machines involved look like this:
 
-{% include bordered.html url="/assets/diagrams/tunnel-diagram-2.png" description="Diagram of SSH tunnel diagram described in this guide." %}
+{% include bordered.html url="/assets/diagrams/simple/tunnel-diagram-2.png" description="Diagram of SSH tunnel diagram described in this guide." %}
 
 Here we have port `5678` opened up on the local workstation via an `ssh -L` connection which forwards connections to port `1234` on the gateway. From the remote side, the `ssh -R` connection forwards connections on port `1234` on to the remote servier on port `8000`:
 
-{% include bordered.html url="/assets/diagrams/curl-test-local-1.png" description="Output of `curl` command when run on workstation." %}
+{% include bordered.html url="/assets/diagrams/simple/curl-test-local-1.png" description="Output of `curl` command when run on workstation." %}
 
 The command above acts in the same way as if the following was executed on the remote server:
 
-{% include bordered.html url="/assets/diagrams/curl-test-remote-1.png" description="Equivalent `curl` output on remote server." %}
+{% include bordered.html url="/assets/diagrams/simple/curl-test-remote-1.png" description="Equivalent `curl` output on remote server." %}
 
 This guide will take you through all the steps necessary to recreate this example.
 
 
-### Part 1: Build the Gateway
+## Part 1: Build the Gateway
 
 Since the gateway does very little work, besides forwarding packets from once port to another, we can get away with using the smallest EC2 instance available. In this case, I am using a `t2.micro` instance with Ubuntu 14.04. 
 
@@ -50,37 +50,37 @@ Since the gateway does very little work, besides forwarding packets from once po
 ##### Step 1 - Launch New EC2 Instance
 
 1. Navigate to your preferred Amazon region and click _Launch Instance_:
-{% include thumb.html url="/assets/diagrams/aws-01.png" %}
+{% include thumb.html url="/assets/diagrams/simple/aws-01.png" %}
 
 2. Select _Ubuntu_ as the AMI:
-{% include thumb.html url="/assets/diagrams/aws-02.png" %}
+{% include thumb.html url="/assets/diagrams/simple/aws-02.png" %}
 
 3. Ensure _t2.micro_ is selected and click _Next: Configure Instance Details_:
-{% include thumb.html url="/assets/diagrams/aws-03.png" %}
+{% include thumb.html url="/assets/diagrams/simple/aws-03.png" %}
 
 4. Leave default instance values and click _Next: Add Storage_:
-{% include thumb.html url="/assets/diagrams/aws-04.png" %}
+{% include thumb.html url="/assets/diagrams/simple/aws-04.png" %}
 
 5. Leave default storage values and click _Next: Tag Instance_:
-{% include thumb.html url="/assets/diagrams/aws-05.png" %}
+{% include thumb.html url="/assets/diagrams/simple/aws-05.png" %}
 
 6. Enter name `tunnel-test-1` and click _Next: Configure Security Group_:
-{% include thumb.html url="/assets/diagrams/aws-06.png" %}
+{% include thumb.html url="/assets/diagrams/simple/aws-06.png" %}
 
 7. Click _Add Rule_ and create new Custom TCP rule for port `443` and click _Review and Launch_:
-{% include thumb.html url="/assets/diagrams/aws-07.png" %}
+{% include thumb.html url="/assets/diagrams/simple/aws-07.png" %}
 
 8. Review instance details and click _Launch_:
-{% include thumb.html url="/assets/diagrams/aws-08.png" %}
+{% include thumb.html url="/assets/diagrams/simple/aws-08.png" %}
 
 9. Select _Create a new key pair_, enter `tunnel-key-1` as the Key pair name and click _Download Key Pair_:
-{% include thumb.html url="/assets/diagrams/aws-09.png" %}
+{% include thumb.html url="/assets/diagrams/simple/aws-09.png" %}
 
 10. Save the _tunnel-key-1.pem_ file to a new folder on your workstation called `/tmp/tunnel`, then click _Launch Instance_:
-{% include thumb.html url="/assets/diagrams/aws-10.png" %}
+{% include thumb.html url="/assets/diagrams/simple/aws-10.png" %}
 
 11. Once launched, navigate back to the EC2 Services dashboard and note the status and the IP address of the new `tunnel-test-1` instance:
-{% include thumb.html url="/assets/diagrams/aws-11.png" %}
+{% include thumb.html url="/assets/diagrams/simple/aws-11.png" %}
 
 
 ##### Step 2 - Configure SSH On EC2 Instance
@@ -101,22 +101,22 @@ With the new gateway service up and running on Amazon, the next step is to prepa
     ```
 
     Where `GATEWAY` points to the IP address that was noted in Step 1. If successful, you will be presented with the command prompt of the new instance:
-{% include thumb.html url="/assets/diagrams/ec2conf-1.png" %}
+{% include thumb.html url="/assets/diagrams/simple/ec2conf-1.png" %}
 
 3. Switch to `root` by running `sudo su`, then open the sshd config file for editing using `vi /etc/ssh/sshd_config`:
-{% include thumb.html url="/assets/diagrams/ec2conf-2.png" %}
+{% include thumb.html url="/assets/diagrams/simple/ec2conf-2.png" %}
 
 4. Add an additional `Port 443` configuration line underneath the existing `Port 22` declaration and save the file:
-{% include thumb.html url="/assets/diagrams/ec2conf-3.png" %}
+{% include thumb.html url="/assets/diagrams/simple/ec2conf-3.png" %}
 
 5. Restart the `ssh` service by running `service ssh restart`:
-{% include thumb.html url="/assets/diagrams/ec2conf-4.png" %}
+{% include thumb.html url="/assets/diagrams/simple/ec2conf-4.png" %}
 
 6. To allow the `root` account to SSH directly into the server, edit the `/root/.ssh/authorized_keys` file and remove the comment at the beginning of the first line, so that the line starts with `ssh-rsa AAA...`:
-{% include thumb.html url="/assets/diagrams/ec2conf-5.png" %}
+{% include thumb.html url="/assets/diagrams/simple/ec2conf-5.png" %}
 
     After editing, the contents of the `/root/.ssh/authorized_keys` file should look something like this:
-{% include thumb.html url="/assets/diagrams/ec2conf-6.png" %}
+{% include thumb.html url="/assets/diagrams/simple/ec2conf-6.png" %}
 
 7. Check that `root` account can no ssh into the gateway on port `443` by running:
 
@@ -125,7 +125,7 @@ With the new gateway service up and running on Amazon, the next step is to prepa
     ```
 
     A successful connection will display a command prompt for the `root` account:
-{% include thumb.html url="/assets/diagrams/ec2conf-7.png" %}
+{% include thumb.html url="/assets/diagrams/simple/ec2conf-7.png" %}
 
 
 ##### Step 3 - Add Chatty Script to Gateway
@@ -167,9 +167,29 @@ Create this script as follows:
     ```
 
     The output should look something like this:
-{% include bordered.html url="/assets/diagrams/chatty-1.png" %}
+{% include bordered.html url="/assets/diagrams/simple/chatty-1.png" %}
 
     Kill the process by hitting `CTRL-C`.
+
+    The gateway server is now ready to persist SSH connections. The next part of this guide involves configuring a machine in a remote network to connect to the new gateway.
+
+
+## Part 2: The Remote Server
+
+This guide focuses on a scenario that is common to corporate work environments, where the only way out of the network is via the corporate HTTP proxy. The connection through the proxy to the gateway is made using a program called `proxytunnel`. This section describes the steps required to install and configure this program for this purpose.
+
+##### Step 1 - Installing `proxytunnel` Program
+
+As mentioned earlier in this guide, this part assumes the remote server is running _Ubuntu_, and therefore the `proxytunnel` application can be installed using the `apt` package manager, using the steps below.
+
+> Please Note:
+> In this scenario, it is likely that the `apt` application will itself require some way of connecting through the corporate proxy. Please see the post [Apt and the Corporate Proxy]({% post_url 2015-03-03-Apt-and-the-Corporate-Proxy %}) for details on how to achieve this.
+
+
+
+
+
+
 
 
 
