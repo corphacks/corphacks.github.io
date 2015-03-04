@@ -264,7 +264,7 @@ nav {
     border-left: 2px solid $gray;
     padding: 0.1em 1em;
     color: $gray;
-    font-size: 22px;
+    font-size: 18px;
     font-style: italic;
   }
 
@@ -323,6 +323,7 @@ footer {
   font-size: 16px;
   font-variant: small-caps;
   border-bottom: 1px solid #DDDDDD;
+  padding-bottom: 10px;
 
   a {
     margin-left: 20px;
@@ -342,6 +343,8 @@ footer {
   font-family: $helveticaNeue;
   font-size: 14px;
   color: $darkerGray;
+  padding-bottom: 50px;
+  border-bottom: 1px solid #DDDDDD;
 
   a {
     color: $darkGray;
