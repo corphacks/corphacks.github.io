@@ -16,7 +16,7 @@ This section describes the steps required to establish SSH connections to the AW
 <a name="sec1"></a>
 ### Installation and Configuration
 
-As mentioned in the guide [Overview]({% post_url 2015-03-03-Super-Simple-SSH-Tunnel-Overview %}#sec1) section of this guide, this assumes that the remote server runs _Ubuntu_, and therefore makes use of the `apt` program to install `proxytunnel`. However, the details below can also be applied to other Linux platforms, such as _CentOS_ and _RedHat_, by replacing `apt` with `yum`. 
+As mentioned in the [Overview]({% post_url 2015-03-03-Super-Simple-SSH-Tunnel-Overview %}#sec1) section of this guide, this assumes that the remote server runs _Ubuntu_, and therefore makes use of the `apt` program to install `proxytunnel`. However, the details below can also be applied to other Linux platforms, such as _CentOS_ and _RedHat_, by replacing `apt` with `yum`. 
 
 
 <a name="step1"></a>
