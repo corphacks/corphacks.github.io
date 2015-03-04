@@ -8,7 +8,7 @@ comments: true
 {% include simple_ssh/toc.html %}
 
 <a name="about"></a>
-### About This Post
+### About This Guide
 
 This guide shows you how to set up a quick and dirty SSH tunnel from your workstation to a server in a remote, hard-to-get-at network. It makes use of a gateway machine in AWS to maintain the tunnel connection and includes all the tricks required to get through proxies and firewalls. 
 
@@ -16,7 +16,7 @@ This guide shows you how to set up a quick and dirty SSH tunnel from your workst
 
 
 <a name="sec1"></a>
-##### The Server Bits
+### The Server Bits
 
 Three separate machines are involved in setting up the tunnel in this guide:
 
@@ -28,7 +28,7 @@ This guide assumes that your remote machine and gateway are running _Ubuntu_ and
 
 
 <a name="sec2"></a>
-##### The Tunneling Example
+### The Tunneling Example
 
 _The Goal: Establish a simple tunnel from a local workstation to a remote HTTP server._
 

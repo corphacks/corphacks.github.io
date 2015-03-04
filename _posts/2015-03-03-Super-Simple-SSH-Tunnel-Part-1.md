@@ -65,7 +65,7 @@ Please skip to Step 2 if you are already familiar with creating new EC2 instance
 
 
 <a name="step2"></a>
-##### Step 2 - Configure SSH On EC2 Instance
+### Step 2 - Configure SSH On EC2 Instance
 
 With the new gateway service up and running on Amazon, the next step is to prepare it to receive SSH connections on port `443`.
 
@@ -114,7 +114,7 @@ With the new gateway service up and running on Amazon, the next step is to prepa
 
 
 <a name="step3"></a>
-##### Step 3 - Add Chatty Script to Gateway
+### Step 3 - Add Chatty Script to Gateway
 
 This script is used by both the local and remote machines to maintain persistent connections to the gateway. When executed, the script outputs a tiny bit of text at random intervals, making it appear to be an active, healthy connection to the surrounding infrastructure, which helps reduce the risk that the connection will be terminated. I have found this method to be sufficient to keep the tunnel connection maintained for weeks on end.
 

@@ -20,7 +20,7 @@ As mentioned in the [Overview]({% post_url 2015-03-03-Super-Simple-SSH-Tunnel-Ov
 
 
 <a name="step1"></a>
-##### Step 1 - Installing and Configuring `proxytunnel` Program
+### Step 1 - Installing and Configuring `proxytunnel` Program
 
 1. Install `proxytunnel` via `apt` by running:
 
@@ -44,7 +44,7 @@ As mentioned in the [Overview]({% post_url 2015-03-03-Super-Simple-SSH-Tunnel-Ov
 
 
 <a name="step2"></a>
-##### Step 2 - Setting Up Simple HTTP Test Server
+### Step 2 - Setting Up Simple HTTP Test Server
 
 A simple HTTP server, in the form of a python `SimpleHTTPServer` process, will be used to test the complete end-to-end tunnel connection. In this case, the python process will run on port `8000` on the remote server, and accessed on from the local workstation using the tunnel connection. 
 
@@ -85,7 +85,7 @@ A simple HTTP server, in the form of a python `SimpleHTTPServer` process, will b
 4. In a separate terminal session on the remote server, test that the simple HTTP service works by executing:
 
     ```bash
-    curl http://localhost:8000
+    curl http://localhost:8000/
     ```
 
     The output should look something like this:
@@ -94,7 +94,7 @@ A simple HTTP server, in the form of a python `SimpleHTTPServer` process, will b
     
 
 <a name="step3"></a>
-##### Step 3 - Establishing the Work-Side Tunnel Connection
+### Step 3 - Establishing the Work-Side Tunnel Connection
 
 With the test HTTP service running, a new SSH tunnel connection can now be established to direct traffic on the gateway to the remote service.
 
@@ -135,7 +135,7 @@ With the test HTTP service running, a new SSH tunnel connection can now be estab
     sh /tmp/tunnel/remote-side-tunnel.sh
     ```
 
-    If the connection is successful, the following output will be displayed:
+    If the connection is successful, the `chatty.sh` script on the gateway server will begin generating output which will look something like this:
 
     {% include bordered.html url="/assets/diagrams/simple_ssh/remoteconf-1.png" %}
 
