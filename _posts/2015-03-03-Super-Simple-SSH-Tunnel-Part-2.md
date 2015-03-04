@@ -35,10 +35,10 @@ As mentioned in the guide [Overview]({% post_url 2015-03-03-Super-Simple-SSH-Tun
 
     ```bash
     StrictHostKeyChecking no
-    ProxyCommand proxytunnel --proxy=10.11.12.13:8080 --dest=54.79.116.198:443
+    ProxyCommand proxytunnel --proxy=10.11.12.13:8080 --dest=54.66.197.58:443
     ```
 
-    This configuration file will be used for new SSH connections to the AWS gateway server in [Step 3](#step3). Please ensure the correct proxy IP and port values are used for your environment.
+    This configuration file will be used for new SSH connections to the AWS gateway server in [Step 3](#step3). Please ensure the correct proxy IP, proxy port and AWS gateway IP values are used for your environment.
 
     > For details on the different configration `proxytunnel` configuration options, including the `--ntlm` flag for using NTLM based authentication, and the `--proxyauth` parameter for specifying your proxy login credentials, please read through the `README` documentation at the [`proxytunnel` GitHub project page](https://github.com/proxytunnel/proxytunnel).
 
@@ -79,6 +79,9 @@ A simple HTTP server, in the form of a python `SimpleHTTPServer` process, will b
     cd /tmp/tunnel && simple-http.sh
     ```
 
+    > Please note: the `simple-http.sh` process needs to remain running for the remainder of this guide.
+
+
 4. In a separate terminal session on the remote server, test that the simple HTTP service works by executing:
 
     ```bash
@@ -95,31 +98,47 @@ A simple HTTP server, in the form of a python `SimpleHTTPServer` process, will b
 
 With the test HTTP service running, a new SSH tunnel connection can now be established to direct traffic on the gateway to the remote service.
 
-1. On the remote server, create a new file called `/tmp/tunnel/remote-side-connection.sh` with the following contents:
+1. On the remote server, create a new file called `/tmp/tunnel/remote-side-tunnel.sh` with the following contents:
 
     ```bash
     #!/bin/bash
 
     set -e
 
-    TUNNEL_CONF="tunnel-ssh.conf"
-    TUNNEL_GATEWAY="54.79.116.198"
+    TUNNEL_GATEWAY="54.66.197.58"
+    TUNNEL_CONF="/tmp/tunnel/tunnel-ssh.conf"
+    TUNNEL_KEY="/tmp/tunnel/tunnel-key-1.pem"
     CONNECT_STR="simplehttp_work"
     GATEWAY_PORT=1234
     WORK_PORT=8000
 
-    ssh -n -R $GATEWAY_PORT:localhost:$WORK_PORT -F $TUNNEL_CONF -l root $TUNNEL_GATEWAY ./chatty.sh $CONNECT_STR &
+    ssh -n -R $GATEWAY_PORT:localhost:$WORK_PORT -F $TUNNEL_CONF -i $TUNNEL_KEY -l root $TUNNEL_GATEWAY ./chatty.sh $CONNECT_STR 
     ```
 
+    Please ensure the `TUNNEL_GATEWAY` value points to the IP address that was assigned to your AWS gateway in [Part 1]({% post_url 2015-03-03-Super-Simple-SSH-Tunnel-Part-1 %}) of this guide.
 
+2. Copy the AWS gateway key file to remote server to the path:
 
+    ```bash
+    /tmp/tunnel/tunnel-key-1.pem
+    ```
 
+3. Make sure the key file has the correct permissions by running:
 
+    ```bash
+    chmod 600 /tmp/tunnel/tunnel-key-1.pem
+    ```
 
+4. Run the new tunnel script using:
 
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-_TBC..._
+    ```bash
+    sh /tmp/tunnel/remote-side-tunnel.sh
+    ```
+
+    If the connection is successful, the following output will be displayed:
+
+    {% include bordered.html url="/assets/diagrams/simple_ssh/remoteconf-1.png" %}
+
 
 <a name="next"></a>
 ### Next Step
