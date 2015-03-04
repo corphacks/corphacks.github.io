@@ -5,31 +5,126 @@ comments: true
 ---
 
 
-### Overview
+### The Remote Server
 
-This section describes the steps required to establish SSH connections to the AWS gateway server from a remote server located behind a corporate proxy or firewall.
+This section describes the steps required to establish SSH connections to the AWS gateway from a remote server. It focuses, in particular, on the scenario that is common to corporate work environments, where the only way to access the Internet is via the corporate HTTP proxy. To get to the gateway from the remote server, a program called `proxytunnel` is used. Installing and configuring `proxytunnel` is detailed below.
+
 
 {% include simple_ssh/disclaimer.html %}
 
 
 <a name="sec1"></a>
-## Part 2: The Remote Server
+### Installation and Configuration
 
-This guide focuses on a scenario that is common to corporate work environments, where the only way out of the network is via the corporate HTTP proxy. The connection through the proxy to the gateway is made using a program called `proxytunnel`. This section describes the steps required to install and configure this program for this purpose.
+As mentioned in the guide [Overview]({% post_url 2015-03-03-Super-Simple-SSH-Tunnel-Overview %}#sec1) section of this guide, this assumes that the remote server runs _Ubuntu_, and therefore makes use of the `apt` program to install `proxytunnel`. However, the details below can also be applied to other Linux platforms, such as _CentOS_ and _RedHat_, by replacing `apt` with `yum`. 
 
 
 <a name="step1"></a>
-##### Step 1 - Installing `proxytunnel` Program
+##### Step 1 - Installing and Configuring `proxytunnel` Program
 
-As mentioned earlier in this guide, this part assumes the remote server is running _Ubuntu_, and therefore the `proxytunnel` application can be installed using the `apt` package manager, using the steps below.
+1. Install `proxytunnel` via `apt` by running:
 
-> Please Note:
-> In this scenario, it is likely that the `apt` application will itself require some way of connecting through the corporate proxy. Please see the post [Apt and the Corporate Proxy]({% post_url 2015-03-03-Apt-and-the-Corporate-Proxy %}) for details on how to achieve this.
+    ```bash
+    sudo apt-get update && sudo apt-get install -y proxytunnel
+    ```
+
+    > Please Note:
+    > In this scenario, it is likely that the `apt` application will itself require some way of connecting through the corporate proxy. Please see the post [Apt and the Corporate Proxy]({% post_url 2015-03-03-Apt-and-the-Corporate-Proxy %}) for details on how to achieve this.
+
+2. Create new `/tmp/tunnel/tunnel-ssh.conf` file with the following contents:
+
+    ```bash
+    StrictHostKeyChecking no
+    ProxyCommand proxytunnel --proxy=10.11.12.13:8080 --dest=54.79.116.198:443
+    ```
+
+    This configuration file will be used for new SSH connections to the AWS gateway server in [Step 3](#step3). Please ensure the correct proxy IP and port values are used for your environment.
+
+    > For details on the different configration `proxytunnel` configuration options, including the `--ntlm` flag for using NTLM based authentication, and the `--proxyauth` parameter for specifying your proxy login credentials, please read through the `README` documentation at the [`proxytunnel` GitHub project page](https://github.com/proxytunnel/proxytunnel).
+
+
+<a name="step2"></a>
+##### Step 2 - Setting Up Simple HTTP Test Server
+
+A simple HTTP server, in the form of a python `SimpleHTTPServer` process, will be used to test the complete end-to-end tunnel connection. In this case, the python process will run on port `8000` on the remote server, and accessed on from the local workstation using the tunnel connection. 
+
+1. Create new `/tmp/tunnel/simple-http.sh` script with the following contents:
+
+    ```bash
+    #!/bin/bash
+
+    python -m SimpleHTTPServer
+    ```
+
+    Or, if python is not available on your remote server, the following script will also serve for testing purposes:
+
+    ```bash
+    #!/bin/bash
+    
+    while true
+    do
+      nc -l 127.0.0.1 8000 < index.html
+    done
+    ```
+
+2. Create a simple `/tmp/tunnel/index.html` file to serve with the following contents:
+
+    ```html
+    <h1>It worked!</h1>
+    ```
+
+3. Run the `/tmp/tunnel/simple-http.sh` script using:
+
+    ```bash
+    cd /tmp/tunnel && simple-http.sh
+    ```
+
+4. In a separate terminal session on the remote server, test that the simple HTTP service works by executing:
+
+    ```bash
+    curl http://localhost:8000
+    ```
+
+    The output should look something like this:
+
+    {% include bordered.html url="/assets/diagrams/simple_ssh/curl-test-remote-1.png" %}
+    
+
+<a name="step3"></a>
+##### Step 3 - Establishing the Work-Side Tunnel Connection
+
+With the test HTTP service running, a new SSH tunnel connection can now be established to direct traffic on the gateway to the remote service.
+
+1. On the remote server, create a new file called `/tmp/tunnel/remote-side-connection.sh` with the following contents:
+
+    ```bash
+    #!/bin/bash
+
+    set -e
+
+    TUNNEL_CONF="tunnel-ssh.conf"
+    TUNNEL_GATEWAY="54.79.116.198"
+    CONNECT_STR="simplehttp_work"
+    GATEWAY_PORT=1234
+    WORK_PORT=8000
+
+    ssh -n -R $GATEWAY_PORT:localhost:$WORK_PORT -F $TUNNEL_CONF -l root $TUNNEL_GATEWAY ./chatty.sh $CONNECT_STR &
+    ```
+
+
+
+
+
 
 
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<p>&nbsp;</p>
-_... TBC..._
+_TBC..._
+
+<a name="next"></a>
+### Next Step
+
+Please continue on to [Part 3 - The Local Workstation]({% post_url 2015-03-03-Super-Simple-SSH-Tunnel-Part-3 %}) for the next part of this guide.
+
 
 {% include simple_ssh/toc.html %}
