@@ -1,13 +1,13 @@
 ---
 layout: post
-title: Super Simple SSH Tunnel - Part 1
+title: Simple SSH Tunnel Guide - Part 1
 comments: true
 ---
 
 
 ### Building the Gateway
 
-  This post describes the first of three parts of my [Super Simple SSH Tunnel]({% post_url 2015-03-03-Super-Simple-SSH-Tunnel-Overview %}) guide. The goal of this post is to get new server up and running in AWS to act as a gateway for SSH tunneling.
+  This post describes the first of three parts of my [Simple SSH Tunnel Guide]({% post_url 2015-03-03-Simple-SSH-Tunnel-Guide %}). The goal of this post is to get new server up and running in AWS to act as a gateway for SSH tunneling.
 
 
 <a name="step1"></a>
@@ -164,7 +164,7 @@ Create this script as follows:
 <a name="next"></a>
 ### Next Step
 
-Please continue on to [Part 2 - The Remote Server]({% post_url 2015-03-03-Super-Simple-SSH-Tunnel-Part-2 %}) for the next part of this guide.
+Please continue on to [Part 2 - The Remote Server]({% post_url 2015-03-03-Simple-SSH-Tunnel-Guide-Part-2 %}) for the next part of this guide.
 
 
 {% include simple_ssh/toc.html %}

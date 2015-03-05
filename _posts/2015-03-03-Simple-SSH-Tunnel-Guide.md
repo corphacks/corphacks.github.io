@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Super Simple SSH Tunnel - Overview
+title: Simple SSH Tunnel Guide
 comments: true
 ---
 
@@ -50,5 +50,5 @@ This guide will take you through all the steps necessary to recreate this exampl
 <a name="next"></a>
 ### Next Step
 
-Please continue on to [Part 1 - Building the Gateway]({% post_url 2015-03-03-Super-Simple-SSH-Tunnel-Part-1 %}) for the next part of this guide.
+Please continue on to [Part 1 - Building the Gateway]({% post_url 2015-03-03-Simple-SSH-Tunnel-Guide-Part-1 %}) for the next part of this guide.
 

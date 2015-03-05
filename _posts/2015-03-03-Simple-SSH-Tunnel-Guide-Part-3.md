@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Super Simple SSH Tunnel - Part 3
+title: Simple SSH Tunnel Guide - Part 3
 comments: true
 ---
 
@@ -15,13 +15,13 @@ This is the final part of a 3-part guide to creating a simple SSH tunnel connect
 <a name="sec1"></a>
 ### Configuring Local SSH
 
-As mentioned in the [Overview]({% post_url 2015-03-03-Super-Simple-SSH-Tunnel-Overview %}#sec1) section of this guide, this assumes that the local workstation runs _Mac OS X_. The details here, however, will work across a number of different platforms, including _Linux_ and _Windows_ and any platform that supports `openssh` (such as (Cygwin)[https://www.cygwin.com/] and (msysGit)[https://msysgit.github.io/]).
+As mentioned in the [Overview]({% post_url 2015-03-03-Simple-SSH-Tunnel-Guide %}#sec1) section of this guide, this assumes that the local workstation runs _Mac OS X_. The details here, however, will work across a number of different platforms, including _Linux_ and _Windows_ and any platform that supports `openssh` (such as (Cygwin)[https://www.cygwin.com/] and (msysGit)[https://msysgit.github.io/]).
 
 
 <a name="step1"></a>
 ### Step 1 - Local SSH Tunnel Config
 
-1. Ensure that the AWS gateway key file, created in [Part 1]({% post_url 2015-03-03-Super-Simple-SSH-Tunnel-Part-1 %}) of this guide, still sits in the `/tmp/tunnel` folder of your workstation. 
+1. Ensure that the AWS gateway key file, created in [Part 1]({% post_url 2015-03-03-Simple-SSH-Tunnel-Guide-Part-1 %}) of this guide, still sits in the `/tmp/tunnel` folder of your workstation. 
 
 2. Create a new script called `/tmp/tunnel/local-side-tunnel.sh` with the following contents:
 
@@ -52,9 +52,9 @@ As mentioned in the [Overview]({% post_url 2015-03-03-Super-Simple-SSH-Tunnel-Ov
 <a name="step2"></a>
 ### Step 2 - The Final Test
 
-1. Ensure that the `simple-http.sh` script from [Part 2, Step 2]({% post_url 2015-03-03-Super-Simple-SSH-Tunnel-Part-2%}#step2) is still running and accepting requests on the remote server.
+1. Ensure that the `simple-http.sh` script from [Part 2, Step 2]({% post_url 2015-03-03-Simple-SSH-Tunnel-Guide-Part-2%}#step2) is still running and accepting requests on the remote server.
 
-2. Ensure that the `remote-side-tunnel.sh` script from [Part 2, Step 3]({% post_url 2015-03-03-Super-Simple-SSH-Tunnel-Part-2 %}#step3) is still running on the remote server and generating output from the `chatty.sh` script.
+2. Ensure that the `remote-side-tunnel.sh` script from [Part 2, Step 3]({% post_url 2015-03-03-Simple-SSH-Tunnel-Guide-Part-2 %}#step3) is still running on the remote server and generating output from the `chatty.sh` script.
 
 3. Ensure that the `local-side-tunnel.sh` script from [Step 1](#step1) above is still running and generating output from the `chatty.sh` script.
 

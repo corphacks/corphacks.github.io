@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Super Simple SSH Tunnel - Part 2
+title: Simple SSH Tunnel Guide - Part 2
 comments: true
 ---
 
@@ -16,7 +16,7 @@ This section describes the steps required to establish SSH connections to the AW
 <a name="sec1"></a>
 ### Installation and Configuration
 
-As mentioned in the [Overview]({% post_url 2015-03-03-Super-Simple-SSH-Tunnel-Overview %}#sec1) section of this guide, this assumes that the remote server runs _Ubuntu_, and therefore makes use of the `apt` program to install `proxytunnel`. However, the details below can also be applied to other Linux platforms, such as _CentOS_ and _RedHat_, by replacing `apt` with `yum`. 
+As mentioned in the [Overview]({% post_url 2015-03-03-Simple-SSH-Tunnel-Guide %}#sec1) section of this guide, this assumes that the remote server runs _Ubuntu_, and therefore makes use of the `apt` program to install `proxytunnel`. However, the details below can also be applied to other Linux platforms, such as _CentOS_ and _RedHat_, by replacing `apt` with `yum`. 
 
 
 <a name="step1"></a>
@@ -115,7 +115,7 @@ With the test HTTP service running, a new SSH tunnel connection can now be estab
     ssh -n -R $GATEWAY_PORT:localhost:$WORK_PORT -F $TUNNEL_CONF -i $TUNNEL_KEY -l root $TUNNEL_GATEWAY ./chatty.sh $CONNECT_STR 
     ```
 
-    Please ensure the `TUNNEL_GATEWAY` value points to the IP address that was assigned to your AWS gateway in [Part 1]({% post_url 2015-03-03-Super-Simple-SSH-Tunnel-Part-1 %}) of this guide.
+    Please ensure the `TUNNEL_GATEWAY` value points to the IP address that was assigned to your AWS gateway in [Part 1]({% post_url 2015-03-03-Simple-SSH-Tunnel-Guide-Part-1 %}) of this guide.
 
 2. Copy the AWS gateway key file to remote server to the path:
 
@@ -143,7 +143,7 @@ With the test HTTP service running, a new SSH tunnel connection can now be estab
 <a name="next"></a>
 ### Next Step
 
-Please continue on to [Part 3 - The Local Workstation]({% post_url 2015-03-03-Super-Simple-SSH-Tunnel-Part-3 %}) for the next part of this guide.
+Please continue on to [Part 3 - The Local Workstation]({% post_url 2015-03-03-Simple-SSH-Tunnel-Guide-Part-3 %}) for the next part of this guide.
 
 
 {% include simple_ssh/toc.html %}
