@@ -25,6 +25,7 @@ body {
 
 .container {
   margin: 0 auto;
+  padding: 10px;
   max-width: 1080px;
 }
 
@@ -351,4 +352,12 @@ footer {
     font-weight: 300;
     letter-spacing: 1px;
   }
+}
+
+@media screen and ( max-width: 768px ) {
+ /* When the viewport is 768px or less, 
+    hide #sidebar */
+    .sidebar {
+        display: none;
+    }
 }
