@@ -357,7 +357,12 @@ footer {
 @media screen and ( max-width: 768px ) {
  /* When the viewport is 768px or less, 
     hide #sidebar */
+    .content {
+      width: 100%;
+    }
+
     .sidebar {
         display: none;
+        width: 0%;
     }
 }
