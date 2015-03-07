@@ -12,13 +12,14 @@ This is the final part of a 3-part guide to creating a simple SSH tunnel connect
 
 {% include simple_ssh/disclaimer.html %}
 
-<a name="sec1"></a>
+
 ### Configuring Local SSH
 
-As mentioned in the [Overview]({% post_url 2015-03-03-Simple-SSH-Tunnel-Guide %}#sec1) section of this guide, this assumes that the local workstation runs _Mac OS X_. The details here, however, will work across a number of different platforms, including _Linux_ and _Windows_ and any platform that supports `openssh` (such as (Cygwin)[https://www.cygwin.com/] and (msysGit)[https://msysgit.github.io/]).
+As mentioned in the [Overview]({% post_url 2015-03-03-Simple-SSH-Tunnel-Guide %}) section of this guide, this assumes that the local workstation runs _Mac OS X_. The details here, however, will work across a number of different platforms, including _Linux_ and _Windows_ and any platform that supports `openssh` (such as (Cygwin)[https://www.cygwin.com/] and (msysGit)[https://msysgit.github.io/]).
 
 
 <a name="step1"></a>
+
 ### Step 1 - Local SSH Tunnel Config
 
 1. Ensure that the AWS gateway key file, created in [Part 1]({% post_url 2015-03-03-Simple-SSH-Tunnel-Guide-Part-1 %}) of this guide, still sits in the `/tmp/tunnel` folder of your workstation. 
@@ -50,6 +51,7 @@ As mentioned in the [Overview]({% post_url 2015-03-03-Simple-SSH-Tunnel-Guide %}
     {% include bordered.html url="/assets/diagrams/simple_ssh/localconf-1.png" %}
 
 <a name="step2"></a>
+
 ### Step 2 - The Final Test
 
 1. Ensure that the `simple-http.sh` script from [Part 2, Step 2]({% post_url 2015-03-03-Simple-SSH-Tunnel-Guide-Part-2%}#step2) is still running and accepting requests on the remote server.
@@ -70,6 +72,7 @@ As mentioned in the [Overview]({% post_url 2015-03-03-Simple-SSH-Tunnel-Guide %}
     
 
 <a name="sec2"></a>
+
 ### Conclusion
 
 This guide demonstrated a very simple tunnel example, however this method could be modified to support the tunneling of any service, or multiple services, from the remote server back through to your local workstation. And when used in combination with other traffic routing applications, such as `rinetd`, the options for tunneling services from within the remote network to your local workstation are endless.

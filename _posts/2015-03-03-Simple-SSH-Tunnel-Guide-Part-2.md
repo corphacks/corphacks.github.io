@@ -13,13 +13,13 @@ This section describes the steps required to establish SSH connections to the AW
 {% include simple_ssh/disclaimer.html %}
 
 
-<a name="sec1"></a>
 ### Installation and Configuration
 
-As mentioned in the [Overview]({% post_url 2015-03-03-Simple-SSH-Tunnel-Guide %}#sec1) section of this guide, this assumes that the remote server runs _Ubuntu_, and therefore makes use of the `apt` program to install `proxytunnel`. However, the details below can also be applied to other Linux platforms, such as _CentOS_ and _RedHat_, by replacing `apt` with `yum`. 
+As mentioned in the [Overview]({% post_url 2015-03-03-Simple-SSH-Tunnel-Guide %}) section of this guide, this assumes that the remote server runs _Ubuntu_, and therefore makes use of the `apt` program to install `proxytunnel`. However, the details below can also be applied to other Linux platforms, such as _CentOS_ and _RedHat_, by replacing `apt` with `yum`. 
 
 
 <a name="step1"></a>
+
 ### Step 1 - Installing and Configuring `proxytunnel` Program
 
 1. Install `proxytunnel` via `apt` by running:
@@ -44,6 +44,7 @@ As mentioned in the [Overview]({% post_url 2015-03-03-Simple-SSH-Tunnel-Guide %}
 
 
 <a name="step2"></a>
+
 ### Step 2 - Setting Up Simple HTTP Test Server
 
 A simple HTTP server, in the form of a python `SimpleHTTPServer` process, will be used to test the complete end-to-end tunnel connection. In this case, the python process will run on port `8000` on the remote server, and accessed on from the local workstation using the tunnel connection. 
@@ -94,6 +95,7 @@ A simple HTTP server, in the form of a python `SimpleHTTPServer` process, will b
     
 
 <a name="step3"></a>
+
 ### Step 3 - Establishing the Work-Side Tunnel Connection
 
 With the test HTTP service running, a new SSH tunnel connection can now be established to direct traffic on the gateway to the remote service.
@@ -141,6 +143,7 @@ With the test HTTP service running, a new SSH tunnel connection can now be estab
 
 
 <a name="next"></a>
+
 ### Next Step
 
 Please continue on to [Part 3 - The Local Workstation]({% post_url 2015-03-03-Simple-SSH-Tunnel-Guide-Part-3 %}) for the next part of this guide.

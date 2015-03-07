@@ -11,9 +11,11 @@ comments: true
 
 
 <a name="step1"></a>
+
 ### Step 1 - Launch New EC2 Instance
 
 <a name="shortver"></a>
+
 __Short Version__
 
 If you already know your way around AWS, then all you need to do for this step is the following:
@@ -26,6 +28,7 @@ Once the new instance is launched, the key file downloaded and the public IP add
 
 
 <a name="longver"></a>
+
 __Long Version__
 
 Please skip to Step 2 if you are already familiar with creating new EC2 instances on 
@@ -65,6 +68,7 @@ Please skip to Step 2 if you are already familiar with creating new EC2 instance
 
 
 <a name="step2"></a>
+
 ### Step 2 - Configure SSH On EC2 Instance
 
 With the new gateway service up and running on Amazon, the next step is to prepare it to receive SSH connections on port `443`.
@@ -114,6 +118,7 @@ With the new gateway service up and running on Amazon, the next step is to prepa
 
 
 <a name="step3"></a>
+
 ### Step 3 - Add Chatty Script to Gateway
 
 This script is used by both the local and remote machines to maintain persistent connections to the gateway. When executed, the script outputs a tiny bit of text at random intervals, making it appear to be an active, healthy connection to the surrounding infrastructure, which helps reduce the risk that the connection will be terminated. I have found this method to be sufficient to keep the tunnel connection maintained for weeks on end.
@@ -162,6 +167,7 @@ Create this script as follows:
 
 
 <a name="next"></a>
+
 ### Next Step
 
 Please continue on to [Part 2 - The Remote Server]({% post_url 2015-03-03-Simple-SSH-Tunnel-Guide-Part-2 %}) for the next part of this guide.
