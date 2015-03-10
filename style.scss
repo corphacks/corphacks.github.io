@@ -26,16 +26,16 @@ body {
 .container {
   margin: 0 auto;
   padding: 10px;
-  max-width: 1080px;
+  max-width: 1200px;
 }
 
 .content {
-  width: 70%;
+  width: 75%;
 }
 
 .sidebar {
   float: right;
-  width: 30%;
+  width: 25%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -130,12 +130,10 @@ img {
 
 // Specify the color of the selection
 ::-moz-selection {
-  color: $black;
-  background: $lightGray;
+  background: #bbbbcc;
 }
 ::selection {
-  color: $black;
-  background: $lightGray;
+  background: #bbbbcc;
 }
 
 // Nicolas Gallagher's micro clearfix hack
@@ -309,7 +307,9 @@ footer {
 
 .bimage {
   border: 1px solid #EEEEEE;
-  max-width: 800px;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
   box-shadow: 5px 5px 5px #DDDDDD;
 }
 
