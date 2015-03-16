@@ -33,6 +33,19 @@ For details on how to get Aptitude up and running behind a proxy, please see the
 
 
 
+### Credits
+
+The following sites helped me put this post together:
+
+- [Joyent - Installing Node.js via package manager](https://github.com/joyent/node/wiki/installing-node.js-via-package-manager#debian-and-ubuntu-based-linux-distributions)
+- [DigitalOcean - How To Install Node.js on an Ubuntu 14.04 server](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-an-ubuntu-14-04-server)
+- [JJT.io - Easy Angular development with Yeoman & generator-angular](http://jjt.io/2013/11/14/easy-angular-development-yeoman-generator-angular/)
+
+In addition, I made use of information across a range of sites to find consistent ways of getting tools like `apt`, `npm`, `gem`, `grunt`, `bower` etc. to all work correctly behind a corporate proxy.
+
+
+
+
 ### Step 1 - Install Latest `nodejs` via `nodesource`
 
 This is a variation of the steps provided on the Joyent Wiki, [Installing Node.js Via Package Manager](https://github.com/joyent/node/wiki/installing-node.js-via-package-manager#debian-and-ubuntu-based-linux-distributions), with support for interacting with a corporate proxy.
